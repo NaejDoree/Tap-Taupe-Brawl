@@ -2,7 +2,7 @@ import java.util.Properties;
 
 import com.codingame.gameengine.runner.MultiplayerGameRunner;
 
-public class Main {
+public class TapTaupeBrawlMain {
     public static void main(String[] args) {
         Properties properties = new Properties();
         properties.setProperty("seed", "42");
