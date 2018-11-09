@@ -1,9 +1,7 @@
 import { GraphicEntityModule } from './entity-module/GraphicEntityModule.js';
-import { AnimatedEventModule } from './animations/AnimatedEventModule.js';
 
 export const modules = [
-  GraphicEntityModule,
-  AnimatedEventModule
+  GraphicEntityModule
 ];
 export const playerColors = [
   '#6ac371', // mantis green
