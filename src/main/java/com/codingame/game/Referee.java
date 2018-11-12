@@ -2,6 +2,7 @@ package com.codingame.game;
 
 import java.util.List;
 
+import com.codingame.game.physics.HitBox;
 import com.codingame.game.physics.PhysicalEntity;
 import com.codingame.game.physics.PhysicsEngine;
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
@@ -38,6 +39,12 @@ public class Referee extends AbstractReferee {
         hero1 = new PhysicalEntity(graphicEntityModule.createRectangle());
         hero1.setSpeed(new Vector(10,0));
         hero1.setFloating(true);
+        HitBox test = new HitBox(new Vector(),new Vector(2,2));
+        System.out.println(test.isPointInBox(new Vector(-1,-1)));
+        System.out.println(test.isPointInBox(new Vector(-1,3)));
+        System.out.println(test.isPointInBox(new Vector(3,-1)));
+        System.out.println(test.isPointInBox(new Vector(3,3)));
+        System.out.println(test.isPointInBox(new Vector(1,1)));
    }
 
     @Override
