@@ -2,6 +2,8 @@ package com.codingame.game;
 
 import java.util.List;
 
+import com.codingame.game.physics.PhysicalEntity;
+import com.codingame.game.physics.PhysicsEngine;
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
@@ -17,6 +19,8 @@ public class Referee extends AbstractReferee {
     @Inject private MultiplayerGameManager<Player> gameManager;
     @Inject private GraphicEntityModule graphicEntityModule;
 
+    PhysicalEntity hero1;
+
     private void sendPlayerInputs() {
         List<Player> allPlayers = gameManager.getPlayers();
         for (Player p : gameManager.getActivePlayers()) {
@@ -26,11 +30,14 @@ public class Referee extends AbstractReferee {
         }
     }
 
-
-
     @Override
     public void init() {
         gameManager.setFrameDuration(100);
+        gameManager.setMaxTurns(100);
+
+        hero1 = new PhysicalEntity(graphicEntityModule.createRectangle());
+        hero1.setSpeed(new Vector(10,0));
+        hero1.setFloating(true);
    }
 
     @Override
@@ -38,8 +45,8 @@ public class Referee extends AbstractReferee {
         // Send new inputs with the updated positions
         sendPlayerInputs();
 
-        
-        if (turn == 10) {
+        PhysicsEngine.getInstance().update();
+        if (false) {
             gameManager.getPlayer(0).deactivate();
         } else if (false) {
             gameManager.getPlayer(1).deactivate();
