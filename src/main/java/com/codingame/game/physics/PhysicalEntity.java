@@ -6,16 +6,17 @@ public class PhysicalEntity{
     
     private Vector position;
     private Vector nextPosition;
+    private Vector nextSpeed;
     private Vector speed = new Vector();
     private Vector acceleration = new Vector();
     //TODO : add hitboxes
     private boolean stillObject = false;
     private boolean floating = false;
 
-    PhysicalEntity(Entity e) {
+    public PhysicalEntity(Entity e) {
+        position = new Vector(e.getX(),e.getY());
         setGraphicalEntity(e);
-        setPosition(new Vector(e.getX(),e.getY()));
-        //TODO : Add it to the physical engine elements list
+        PhysicsEngine.getInstance().addEntity(this);
     }
 
     public Entity getGraphicalEntity() {
@@ -35,7 +36,6 @@ public class PhysicalEntity{
         this.position = position;
         syncGraphicalEntity();
     }
-    
 
     protected void syncGraphicalEntity() {
         graphicalEntity.setX(position.getX());
@@ -83,6 +83,17 @@ public class PhysicalEntity{
 
     public void setFloating(boolean floating) {
         this.floating = floating;
+    }
+
+    public Vector getNextSpeed() {
+        return nextSpeed;
+    }
+
+    public void setNextSpeed(Vector nextSpeed) {
+        this.nextSpeed = nextSpeed;
+    }
+    public void applyNextSpeed() {
+        this.setSpeed(nextSpeed);
     }
     
 }
