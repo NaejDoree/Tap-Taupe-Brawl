@@ -3,29 +3,28 @@ package com.codingame.game.physics;
 import com.codingame.game.Vector;
 
 public class HitBox {
-    private Vector anchor;
     private Vector dimensions;
     private boolean trigger = false;
+    private CollisionHandler handler;
     //TODO : add collider tag
     //TODO : add collision layer
-    //TODO : add parent reference and interface (CollisionHandler interface)
 
-    public HitBox(Vector anchor,Vector dimensions){
-        this.anchor = anchor;
+    public HitBox(CollisionHandler handler,Vector dimensions){
+        this.handler = handler;
         this.dimensions = dimensions;
     }
 
     public boolean isPointInBox(Vector point){
-        return point.getX()>=anchor.getX() &&
-                point.getX()<=(anchor.getX()+dimensions.getX()) &&
-                point.getY()>=anchor.getY() &&
-                point.getY()<=(anchor.getY()+dimensions.getX());
+        return point.getX()>=getAnchor().getX() &&
+                point.getX()<=(getAnchor().getX()+dimensions.getX()) &&
+                point.getY()>=getAnchor().getY() &&
+                point.getY()<=(getAnchor().getY()+dimensions.getX());
     }
     public boolean isInBox(HitBox other){
-        return other.isPointInBox(anchor) ||
-                other.isPointInBox(Vector.add(anchor,dimensions)) ||
-                other.isPointInBox(Vector.add(anchor,new Vector(0,dimensions.getY()))) ||
-                other.isPointInBox(Vector.add(anchor,new Vector(dimensions.getX(),0)));
+        return other.isPointInBox(getAnchor()) ||
+                other.isPointInBox(Vector.add(getAnchor(),dimensions)) ||
+                other.isPointInBox(Vector.add(getAnchor(),new Vector(0,dimensions.getY()))) ||
+                other.isPointInBox(Vector.add(getAnchor(),new Vector(dimensions.getX(),0)));
     }
 
     public static boolean isColliding(HitBox a,HitBox b){
@@ -40,11 +39,7 @@ public class HitBox {
         this.dimensions = dimensions;
     }
     public Vector getAnchor() {
-        return anchor;
-    }
-
-    public void setAnchor(Vector anchor) {
-        this.anchor = anchor;
+        return handler.getAnchorPoint(this);
     }
 
     public boolean isTrigger() {
